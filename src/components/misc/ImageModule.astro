@@ -36,10 +36,10 @@ if (isLocal) {
 <!-- <div class={className}> -->
     { 
     isLocal && imageLoad && 
-    <Image src={imageLoad} alt={alt || ""}  id={id || ""} class={className || ""}/>
+    <Image src={imageLoad} alt={alt || ""} id={id || ""} class={className || ""} width={width} height={height}/>
     }
     {
     !isLocal &&
-    <img src={src} alt={alt || ""}  id={id || ""} class={className || ""}/>
+    <img src={src} alt={alt || ""} id={id || ""} class={className || ""} width={width} height={height} fetchpriority="high"/>
     }
 <!-- </div> -->

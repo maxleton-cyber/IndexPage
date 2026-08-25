@@ -5,8 +5,8 @@ import type {
 } from "./types/config"
 
 export const siteConfig: SiteConfig = {
-    title: "Motues",
-    subTitle: "记录生活",
+    title: "MaxLeton",
+    subTitle: "取悦自己，方为生存之道",
 
     backgroundImage: {
         enabled: false, // If backgroundImage is not enabled, this will be used as the background color
@@ -14,19 +14,19 @@ export const siteConfig: SiteConfig = {
     },
 
     mirrorSite: {
-        enabled: true, // If mirrorSite is enabled, this will alart the user to visit the mirror site if user is in region below
-        url: "www.motues.top",
-        region: "CN" // Region of the mirror site, 
+        enabled: false,
+        url: "maxleton.top",
+        region: "CN"
     },
 
-    favicon: "/favicon/favicon.ico" // Path of the favicon, relative to the /public directory
+    favicon: "/avatar.jpg"
 }
 
 export const profileConfig: ProfileConfig = {
-    avatar: "assets/Motues.jpg", // Relative to the /src directory. Relative to the /public directory if it starts with '/'
-    name: "Motues",
-    description: "Like River!",
-    introPage: "https://www.motues.top",
+    avatar: "/avatar.jpg",
+    name: "MaxLeton",
+    description: "取悦自己，方为生存之道",
+    introPage: "https://blog.maxleton.top",
     links: [
         /* -------------------------------- Icon -------------------------------- */
         // Visit https://icones.js.org/ for icon codes
@@ -39,64 +39,24 @@ export const profileConfig: ProfileConfig = {
         // The colors a best to be clearly visible in both light and dark environments 
         // If color is not set, it will use the icon's default color
         {
-          name: "Blog",
-          url: "https://blog.motues.top",
+          name: "博客",
+          url: "https://blog.maxleton.top",
           icon: "fa6-solid:tree", 
           color: "#0dbc79",
         },
         {
-            name: "Note",
-            url: "https://note.motues.top",
-            icon: "fa6-solid:book",
-            color: "#b4a992",
-        },
-        {
-            name: "Lab",
-            url: "/lab",
-            icon: "fa6-solid:server",
-            color: "#72b6b3",
-        },
-        {
             name: "GitHub",
-            url: "https://github.com/Motues",
+            url: "https://github.com/maxleton-cyber",
             icon: "fa6-brands:github",
             color: "#888",
         },
         {
-            name: "Netease",
-            url: "https://music.163.com/#/user/home?id=1601379853",
-            icon: "simple-icons:neteasecloudmusic",
-            color: "#ff2822",
-        },
-        {
-            name: "Mail",
-            url: "mailto:me@motues.top",
+            name: "邮箱",
+            url: "mailto:pwjcode5133@gmail.com",
             icon: "fa6-solid:envelope",
             color: "#43a4d1ff"
         },
     ]
 }
 
-export const labConfig : LabConfig = [
-    // Icon and color rules are same as profileConfig
-    {
-        name: "Public API",
-        description: "A public API for everyone",
-        url: "https://open.motues.top/",
-        icon: "fa6-solid:paperclip",
-        color: "#ffcf27"
-    },
-    {
-        name: "BlockBoard",
-        description: "A real-time online block board",
-        url: "https://blockboard.motues.top",
-        icon: "svg-spinners:blocks-wave", 
-        color: "#9fa1a1ff"
-    },
-    {
-        name: "Status Page",
-        description: "A fancy self-hosted monitoring tool",
-        url: "https://status.motues.top",
-        icon: "assets/icons/lumipulse.svg",
-    },
-]
+export const labConfig : LabConfig = []

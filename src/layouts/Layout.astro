@@ -30,8 +30,10 @@ const backgroundImageUrl = url(siteConfig.backgroundImage.url);
 
         if (theme === 'dark') {
             document.documentElement.classList.add('dark');
+            document.documentElement.style.colorScheme = 'dark';
         } else {
             document.documentElement.classList.remove('dark');
+            document.documentElement.style.colorScheme = 'light';
         }
         })();
     </script>
@@ -39,18 +41,21 @@ const backgroundImageUrl = url(siteConfig.backgroundImage.url);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content={`${profileConfig.description}. This is a ${profileConfig.name} site, which is built with Astro.`}>
     <meta name="author" content={profileConfig.name}>
-    <link rel="icon" href={url(siteConfig.favicon)} type="image/x-icon">
-    <!-- <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Delius+Swash+Caps"> -->
-    <!-- <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Delius"> -->
-    <!-- <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&display=swap" rel="stylesheet"> -->
+    <meta name="theme-color" content="#F4F5F7">
+    <link rel="icon" href={url(siteConfig.favicon)} type="image/jpeg" sizes="any">
+    <link rel="shortcut icon" href={url(siteConfig.favicon)} type="image/jpeg">
+    <link rel="apple-touch-icon" href={url(profileConfig.avatar)}>
     <title>{pageTitle}</title>
     <ClientRouter />
-    <script defer src="https://umami.motues.top/script.js" data-hash is:inline></script>
 </head>
 <body class="layout-body">
+    <a class="skip-link" href="#main">跳到内容</a>
+    <div class="matrix" aria-hidden="true">
+        <div class="matrix-mesh"></div>
+    </div>
     { siteConfig.mirrorSite?.enabled && <SiteNavi /> }
     <ThemeIcon />
-    <main class="main-content">
+    <main id="main" class="main-content" tabindex="-1">
         <slot />
     </main>
     <Footer />
@@ -68,114 +73,157 @@ const backgroundImageUrl = url(siteConfig.backgroundImage.url);
   font-display: swap;
 }
 
-/* @font-face {
-  font-family: 'Comic Sans MS';
-  src: url('/fonts/ComicSansMS-Bold.woff2') format('woff2');
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-} */
-/* 默认主体，白天模式 */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
 :root {
-    --bg-color: #f7f7ff;
-    --text-color: #000000;
-    --footer-text-color: #000000;
-    --link-color: #003b6e;
-    --motto-text-color: #999;
-    --border-color: gray;
-
-    --image-shadow-color: rgba(0, 0, 0, 0.15);
-    
-    /* 弥散渐变背景相关变量 */
-    --color-background-primary: #F8F8F8;
-    --color-text: #333;
-    --color-content-bg: rgba(255, 255, 255, 0.85);
-    --color-shadow: rgba(0, 0, 0, 0.1);
+    --matrix-field: #F4F5F7;
+    --grid-size: 20px;
+    --grid-dot-color: #c7c7c780;
+    --text-color: #1A2422;
+    --footer-text-color: #5A6B66;
+    --link-color: #2F5E54;
+    --motto-text-color: #6A7A75;
+    --border-color: #B7C4BF;
+    --image-shadow-color: rgba(44, 74, 67, 0.18);
+    --bg-color: var(--matrix-field);
+    --color-background-primary: var(--matrix-field);
+    --color-text: var(--text-color);
 }
 
-/* 黑暗模式 */
 [data-theme="dark"] {
-    --bg-color: #031116;
-    --text-color: #ffffff;
-    --footer-text-color: #ffffff;
-    --link-color: #57ace7;
-    --motto-text-color: #c9d0d4;
-    --border-color: gray;
-
-    --image-shadow-color: rgba(59, 130, 246, 0.4);
-    
-    /* 黑暗模式弥散渐变背景相关变量 */
-    --color-background-primary: #121212;
-    --color-text: #E0E0E0; 
-    --color-content-bg: rgba(30, 30, 30, 0.85);
-    --color-shadow: rgba(255, 255, 255, 0.1);
+    --matrix-field: #1e1e1e;
+    --grid-dot-color: #c7c7c71f;
+    --text-color: #E6EEEC;
+    --footer-text-color: #8A9B96;
+    --link-color: #A3C4B8;
+    --motto-text-color: #9AADA6;
+    --border-color: #3D4F49;
+    --image-shadow-color: rgba(0, 0, 0, 0.35);
+    --bg-color: var(--matrix-field);
+    --color-background-primary: var(--matrix-field);
+    --color-text: var(--text-color);
 }
 
-.layout-body { 
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-    margin: 0;
+html {
+    min-height: 100%;
+    color-scheme: light;
+    background-color: var(--matrix-field);
 }
 
-.main-content { 
-    flex: 1;
+[data-theme="dark"] {
+    color-scheme: dark;
 }
 
-html, body { 
+html, body {
     margin: 0;
     padding: 0;
 }
 
-html {
-    height: 100%;
+.layout-body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100dvh;
+    margin: 0;
+    overflow-x: hidden;
+}
+
+.main-content {
+    flex: 1;
+    min-width: 0;
 }
 
 body {
-    font-family: 'Comic Sans MS', 'Comic Neue';
-    /* font-weight: bold; */
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed;
-    background-color: var(--color-background-primary); /* 使用新变量 */
+    font-family: 'Comic Sans MS', 'Comic Neue', sans-serif;
+    background-color: var(--matrix-field);
     color: var(--text-color);
     position: relative;
-    height: 100%;
-    width: 100%;
-    transition: background-color 0.5s ease, color 0.5s ease;
+    min-height: 100dvh;
+    max-width: 100%;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+    padding-left: env(safe-area-inset-left);
+    padding-right: env(safe-area-inset-right);
+    transition: background-color 0.45s ease, color 0.45s ease;
 }
 
-/* 弥散渐变背景伪元素 */
-body::before {
-    content: '';
+.skip-link {
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: -1;
-    
-    /* 亮模式弥散渐变 (莫兰迪淡蓝主导) */
-    background: 
-        radial-gradient(circle at 15% 25%, #ADC4D4 0%, transparent 70%), /* 淡灰蓝 */
-        radial-gradient(circle at 75% 75%, #DFD6DB 0%, transparent 65%), /* 灰粉米 */
-        radial-gradient(circle at 40% 10%, #DBCAB5 0%, transparent 40%), /* 淡棕褐 */
-        radial-gradient(circle at 90% 40%, #C1D2C1 0%, transparent 45%); /* 淡灰绿 */
-    
-    filter: blur(120px);
-    opacity: 0.95;
-    transition: opacity 0.5s, background 0.5s;
+    left: 12px;
+    top: 12px;
+    z-index: 2000;
+    width: max-content;
+    max-width: calc(100vw - 24px);
+    padding: 8px 12px;
+    background: var(--matrix-field);
+    color: var(--text-color);
+    text-decoration: none;
+    transform: translateY(-200%);
 }
 
-/* 黑暗模式下的弥散渐变 */
-[data-theme="dark"] body::before {
-    /* 覆盖亮模式的背景设置，使用新的深色系蓝色和紫色 */
-    background: 
-        radial-gradient(circle at 20% 80%, #2D5B8F 0%, transparent 75%), /* 深海蓝，大光斑 */
-        radial-gradient(circle at 80% 20%, #5A589F 0%, transparent 60%), /* 深靛紫，中光斑 */
-        radial-gradient(circle at 5% 50%, #8E8EF8 0%, transparent 45%),  /* 电光紫，小高亮 */
-        radial-gradient(circle at 95% 5%, #1D2E55 0%, transparent 50%);  /* 深海军蓝，点缀阴影 */
-
-    /* 保持动画和模糊不变，但可以调整不透明度来增强"发光"感 */
-    opacity: 0.8;
+.skip-link:focus-visible {
+    transform: translateY(0);
+    outline: 2px solid var(--link-color);
+    outline-offset: 2px;
 }
+
+/* Obsidian 风格网状点阵 + 四周渐变蒙版
+   参考：https://forum-zh.obsidian.md/t/topic/42053 */
+.matrix {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+.matrix-mesh {
+    position: absolute;
+    inset: 0;
+    background-color: var(--matrix-field);
+    background-image: radial-gradient(
+        circle,
+        var(--grid-dot-color) 1px,
+        transparent 1px
+    );
+    background-size: var(--grid-size) var(--grid-size);
+    background-position: center center;
+    /* 四周渐变蒙版：边缘淡出 */
+    -webkit-mask-image:
+        linear-gradient(to bottom, transparent, #fff 80px calc(100% - 80px), transparent),
+        linear-gradient(to right, transparent, #fff 80px calc(100% - 80px), transparent);
+    mask-image:
+        linear-gradient(to bottom, transparent, #fff 80px calc(100% - 80px), transparent),
+        linear-gradient(to right, transparent, #fff 80px calc(100% - 80px), transparent);
+    -webkit-mask-composite: source-in;
+    mask-composite: intersect;
+    transition: background-color 0.45s ease;
+}
+
+@media (max-width: 640px) {
+    .matrix-mesh {
+        --grid-size: 18px;
+        -webkit-mask-image:
+            linear-gradient(to bottom, transparent, #fff 48px calc(100% - 48px), transparent),
+            linear-gradient(to right, transparent, #fff 32px calc(100% - 32px), transparent);
+        mask-image:
+            linear-gradient(to bottom, transparent, #fff 48px calc(100% - 48px), transparent),
+            linear-gradient(to right, transparent, #fff 32px calc(100% - 32px), transparent);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    body,
+    .matrix-mesh {
+        transition: none;
+    }
+}
+
+.layout-body > :not(.matrix) {
+    position: relative;
+    z-index: 1;
+}
+</style>

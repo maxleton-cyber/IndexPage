@@ -2,8 +2,8 @@
 import { Icon } from "astro-icon/components";
 ---
 
-<button id="themeToggle" title="切换明暗模式">
-  <svg width="30px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"> 
+<button id="themeToggle" type="button" title="切换明暗模式" aria-label="切换明暗模式">
+  <svg width="30px" height="30px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true"> 
     <!-- <Icon name="Moon" class="moon"/>
     <Icon name="Sun" class="sun"/> -->
     <path class="sun" fill-rule="evenodd" d="M12 17.5a5.5 5.5 0 1 0 0-11 5.5 5.5 0 0 0 0 11zm0 1.5a7 7 0 1 0 0-14 7 7 0 0 0 0 14zm12-7a.8.8 0 0 1-.8.8h-2.4a.8.8 0 0 1 0-1.6h2.4a.8.8 0 0 1 .8.8zM4 12a.8.8 0 0 1-.8.8H.8a.8.8 0 0 1 0-1.6h2.5a.8.8 0 0 1 .8.8zm16.5-8.5a.8.8 0 0 1 0 1l-1.8 1.8a.8.8 0 0 1-1-1l1.7-1.8a.8.8 0 0 1 1 0zM6.3 17.7a.8.8 0 0 1 0 1l-1.7 1.8a.8.8 0 1 1-1-1l1.7-1.8a.8.8 0 0 1 1 0zM12 0a.8.8 0 0 1 .8.8v2.5a.8.8 0 0 1-1.6 0V.8A.8.8 0 0 1 12 0zm0 20a.8.8 0 0 1 .8.8v2.4a.8.8 0 0 1-1.6 0v-2.4a.8.8 0 0 1 .8-.8zM3.5 3.5a.8.8 0 0 1 1 0l1.8 1.8a.8.8 0 1 1-1 1L3.5 4.6a.8.8 0 0 1 0-1zm14.2 14.2a.8.8 0 0 1 1 0l1.8 1.7a.8.8 0 0 1-1 1l-1.8-1.7a.8.8 0 0 1 0-1z"/>
@@ -26,14 +26,18 @@ import { Icon } from "astro-icon/components";
     align-items: center;
     justify-content: center;
     z-index: 1000;
-    transition: all 0.3s ease;
+    transition: transform 0.25s ease, opacity 0.25s ease;
     opacity: 90%;
-    border: none; /* 移除边框 */
+    border: none;
   }
 
   #themeToggle:hover {
-    transform: scale(1.1);
-    box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4);
+    transform: scale(1.08);
+  }
+
+  #themeToggle:focus-visible {
+    outline: 2px solid var(--link-color);
+    outline-offset: 3px;
   }
 
   #themeToggle svg .sun{

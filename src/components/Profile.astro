@@ -1,18 +1,14 @@
 ---
-import path from 'path'
 import { profileConfig } from "../config";
-import { Image } from 'astro:assets';
 import ImageModule from "./misc/ImageModule.astro"
 import IconModule from './misc/IconModule.astro'
 
 const config = profileConfig;
-
-import img from "../assets/Motues.jpg"
 ---
 
 <div class="profile">
     <div class="avatar">
-        <ImageModule src={profileConfig.avatar} alt="avator" class="image"/>
+        <ImageModule src={profileConfig.avatar} alt="MaxLeton 的头像" class="image" width={100} height={100}/>
     </div>
     <div class="text"> 
         <div class="name">{config.name}</div>
@@ -24,6 +20,7 @@ import img from "../assets/Motues.jpg"
             <div class="link">
                 <a 
                   href={item.url} 
+                  aria-label={item.name}
                   {...item.url.startsWith('/') 
                     ? {} 
                     : { target: "_blank", rel: "noreferrer" }} 
@@ -44,8 +41,9 @@ import img from "../assets/Motues.jpg"
     align-items: center;
     flex: 1;
     width: 100%;
-    padding: 20px 0;
-    margin-top: 25vh;
+    max-width: 100%;
+    padding: 20px 16px;
+    margin-top: clamp(4rem, 18vh, 25vh);
 }
 .text{
     display: block;
@@ -91,6 +89,12 @@ import img from "../assets/Motues.jpg"
     opacity: 1;
 }
 
+.link a:focus-visible {
+    outline: 2px solid var(--link-color);
+    outline-offset: 4px;
+    opacity: 1;
+}
+
 .link a::after {
     content: attr(data-title);
     position: absolute;
@@ -125,6 +129,7 @@ import img from "../assets/Motues.jpg"
 .avatar .image{
     width: 100px !important;
     height: 100px !important;
+    object-fit: cover;
     border-radius: 50%;
     overflow: hidden;
     box-shadow: 0 4px 20px var(--image-shadow-color);

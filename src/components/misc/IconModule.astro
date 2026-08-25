@@ -29,8 +29,8 @@ if (isLocal) {
 ---
 
 {isLocal && SvgComponent && 
-  <SvgComponent width={size} height={size} fill={color} />
+  <SvgComponent width={size} height={size} fill={color} aria-hidden="true" />
 }
 {!isLocal &&
-  <Icon name={icon} size={size || 25} style={`color: ${color}`} />
+  <Icon name={icon} size={size || 25} style={`color: ${color}`} aria-hidden="true" />
 }
