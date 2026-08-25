@@ -3,6 +3,7 @@
 
 import { Image } from "astro:assets";
 import path from "path"
+import { url } from "@utils/url-utils"
 
 interface Props {
     src: string;
@@ -20,7 +21,8 @@ const isLocal = !(
     src.startsWith("/") ||
     src.startsWith("http")
 );
-const isPublic = src.startsWith("/");
+
+const resolvedSrc = isLocal ? src : (src.startsWith("http") ? src : url(src));
 
 let imageLoad;
 if (isLocal) {
@@ -40,6 +42,6 @@ if (isLocal) {
     }
     {
     !isLocal &&
-    <img src={src} alt={alt || ""} id={id || ""} class={className || ""} width={width} height={height} fetchpriority="high"/>
+    <img src={resolvedSrc} alt={alt || ""} id={id || ""} class={className || ""} width={width} height={height} fetchpriority="high"/>
     }
 <!-- </div> -->
