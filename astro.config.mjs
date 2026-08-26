@@ -5,8 +5,7 @@ import icon from 'astro-icon';
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://maxleton-cyber.github.io',
-  base: '/IndexPage',
+  site: 'https://maxleton.top',
   integrations: [
     icon({
       include: {
