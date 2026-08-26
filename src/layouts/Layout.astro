@@ -13,19 +13,15 @@ const backgroundImageUrl = url(siteConfig.backgroundImage.url);
 
 ---
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="zh-CN" data-theme="dark" class="dark">
 <head>
     <script is:inline>
         (function() {
         const savedTheme = localStorage.getItem('theme');
-        const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-        let theme;
-        if ( savedTheme === 'system') {
-          theme = systemTheme;
-        } else {
-          theme = savedTheme || 'light';
-        }
-        localStorage.setItem('theme', savedTheme || theme);
+        const theme = (savedTheme === 'light' || savedTheme === 'dark')
+          ? savedTheme
+          : 'dark';
+        localStorage.setItem('theme', theme);
         document.documentElement.setAttribute('data-theme', theme);
 
         if (theme === 'dark') {
@@ -41,7 +37,7 @@ const backgroundImageUrl = url(siteConfig.backgroundImage.url);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content={`${profileConfig.description}. This is a ${profileConfig.name} site, which is built with Astro.`}>
     <meta name="author" content={profileConfig.name}>
-    <meta name="theme-color" content="#F4F5F7">
+    <meta name="theme-color" content="#1e1e1e">
     <link rel="icon" href={url(siteConfig.favicon)} type="image/jpeg" sizes="any">
     <link rel="shortcut icon" href={url(siteConfig.favicon)} type="image/jpeg">
     <link rel="apple-touch-icon" href={url(profileConfig.avatar)}>
@@ -110,7 +106,7 @@ const backgroundImageUrl = url(siteConfig.backgroundImage.url);
 
 html {
     min-height: 100%;
-    color-scheme: light;
+    color-scheme: dark;
     background-color: var(--matrix-field);
 }
 

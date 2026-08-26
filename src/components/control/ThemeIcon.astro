@@ -77,17 +77,18 @@ function initThemeToggle() {
       if (['dark', 'light'].includes(localStorageTheme)) {
           return localStorageTheme;
       }
-      if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-          return 'dark';
-      }
-      return 'light';
+      return 'dark';
   })();
 
   const setTheme = (themeSet) => { 
       if (themeSet === 'dark') {
           htmlRoot.setAttribute('data-theme', 'dark');
+          htmlRoot.classList.add('dark');
+          htmlRoot.style.colorScheme = 'dark';
       } else {
           htmlRoot.removeAttribute('data-theme');
+          htmlRoot.classList.remove('dark');
+          htmlRoot.style.colorScheme = 'light';
       }
       window.localStorage.setItem('theme', themeSet);
   };
